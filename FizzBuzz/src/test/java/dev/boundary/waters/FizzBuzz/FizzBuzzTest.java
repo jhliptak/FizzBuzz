@@ -33,45 +33,29 @@ class FizzBuzzTest {
 	@Test
 	void test0() {
 		FizzBuzz fb = new FizzBuzz();
-		try {
-			fb.process(0);
-		} catch (Exception e) {
-			return; // success
-		}
-		fail("Didn't get an exception for less than 1");
+		assertThrows(IllegalArgumentException.class, () -> fb.process(0),
+				"arguments must be between 1 and 100");
 	}
 
 	@Test
 	void test101() {
 		FizzBuzz fb = new FizzBuzz();
-		try {
-			fb.process(101);
-		} catch (Exception e) {
-			return; // success
-		}
-		fail("Didn't get an exception for less than 1");
+		assertThrows(IllegalArgumentException.class, () -> fb.process(101),
+				"arguments must be between 1 and 100");
 	}
 	
 	@Test
 	void testEmpty() {
 		FizzBuzz fb = new FizzBuzz();
-		try {
-			fb.fizzBuzz(0, 0, System.out::println);
-		} catch (Exception e) {
-			return; // success
-		}
-		fail("Didn't get an exception for empty range");
+		assertThrows(IllegalArgumentException.class, () -> fb.fizzBuzz(0, 0, System.out::println),
+				"input range can't be empty");
 	}
 	
 	@Test
 	void testOutOfOrder() {
 		FizzBuzz fb = new FizzBuzz();
-		try {
-			fb.fizzBuzz(101, 1, System.out::println);
-		} catch (Exception e) {
-			return; // success
-		}
-		fail("Didn't get an exception for empty range");
+		assertThrows(IllegalArgumentException.class, () -> fb.fizzBuzz(101, 1, System.out::println),
+				"start must be less than stop");
 	}
 
 }
