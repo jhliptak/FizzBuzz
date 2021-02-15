@@ -51,5 +51,27 @@ class FizzBuzzTest {
 		}
 		fail("Didn't get an exception for less than 1");
 	}
+	
+	@Test
+	void testEmpty() {
+		FizzBuzz fb = new FizzBuzz();
+		try {
+			fb.fizzBuzz(0, 0, System.out::println);
+		} catch (Exception e) {
+			return; // success
+		}
+		fail("Didn't get an exception for empty range");
+	}
+	
+	@Test
+	void testOutOfOrder() {
+		FizzBuzz fb = new FizzBuzz();
+		try {
+			fb.fizzBuzz(101, 1, System.out::println);
+		} catch (Exception e) {
+			return; // success
+		}
+		fail("Didn't get an exception for empty range");
+	}
 
 }

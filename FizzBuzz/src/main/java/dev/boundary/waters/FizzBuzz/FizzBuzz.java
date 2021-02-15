@@ -1,5 +1,8 @@
 package dev.boundary.waters.FizzBuzz;
 
+import java.util.function.Consumer;
+import java.util.stream.IntStream;
+
 /**
  * A canonical FizzBuzz implementation.
  * 
@@ -11,11 +14,11 @@ package dev.boundary.waters.FizzBuzz;
  */
 public class FizzBuzz {
 	
-	public void fizzBuzz() {
-		
-		for(int i = 1; i < 101; i++) {
-			System.out.println(process(i));
-		}		
+	public void fizzBuzz(int start, int finish, Consumer<String> func) {
+		if(start >= finish) {
+			throw new IllegalArgumentException("start " + start + " must be less than finish " + finish);
+		}
+		IntStream.range(start, finish).mapToObj(n -> process(n)).forEach(s -> func.accept (s));
 	}
 
 	protected String process(int i) {
