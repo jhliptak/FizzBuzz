@@ -19,18 +19,11 @@ public class MySpringBootRouter extends RouteBuilder {
     @Override
     public void configure() {
     	
-    	restConfiguration().component("netty-http").port(8888); // .host("0.0.0.0").port(8080).bindingMode(RestBindingMode.auto);
-    	
-        from("timer:hello?period={{timer.period}}").routeId("hello")
-            .transform().method("myBean", "saySomething")
-            .filter(simple("${body} contains 'foo'"))
-                .to("log:foo")
-            .end()
-            .to("stream:out");
+    	restConfiguration().component("netty-http").host("0.0.0.0").port(8888).bindingMode(RestBindingMode.json);
+    	        
+        rest("/camel").get("/hello/{i}").to("direct:fizzbuzz");
         
-        rest("/camel").get("/hello").to("direct:fizzbuzz");
-        
-        from("direct:fizzbuzz").bean(fb);
+        from("direct:fizzbuzz").bean(fb, "process(${header.i})");
         
 
     }
