@@ -3,6 +3,8 @@ package dev.boundary.waters.FizzBuzz;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
+import org.springframework.stereotype.Component;
+
 /**
  * A canonical FizzBuzz implementation.
  * 
@@ -12,6 +14,7 @@ import java.util.stream.IntStream;
  * For numbers which are multiples of both three and five print “FizzBuzz”.
  * 
  */
+@Component("fizzBuzz")
 public class FizzBuzz {
 	
 	public void fizzBuzz(int start, int finish, Consumer<String> func) {

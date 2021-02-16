@@ -1,6 +1,8 @@
 package dev.boundary.waters.FizzBuzz;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.rest.RestBindingMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,15 +12,27 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MySpringBootRouter extends RouteBuilder {
+	
+	@Autowired
+	FizzBuzz fb;
 
     @Override
     public void configure() {
+    	
+    	restConfiguration().component("netty-http").port(8888); // .host("0.0.0.0").port(8080).bindingMode(RestBindingMode.auto);
+    	
         from("timer:hello?period={{timer.period}}").routeId("hello")
             .transform().method("myBean", "saySomething")
             .filter(simple("${body} contains 'foo'"))
                 .to("log:foo")
             .end()
             .to("stream:out");
+        
+        rest("/camel").get("/hello").to("direct:fizzbuzz");
+        
+        from("direct:fizzbuzz").bean(fb);
+        
+
     }
 
 }
