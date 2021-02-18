@@ -25,6 +25,13 @@ public class MySpringBootRouter extends RouteBuilder {
         
         from("direct:fizzbuzz").bean(fb, "process(${header.i})");
         
+        // Needed for auto generated unit test only
+        from("timer:hello?period={{timer.period}}").routeId("hello")
+        .transform().method("myBean", "saySomething")
+        .filter(simple("${body} contains 'foo'"))
+            .to("log:foo")
+        .end()
+        .to("stream:out");
 
     }
 
