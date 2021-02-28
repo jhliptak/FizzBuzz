@@ -32,7 +32,5 @@ public class MySpringBootRouter extends RouteBuilder {
             .to("log:foo")
         .end()
         .to("stream:out");
-
     }
-
 }

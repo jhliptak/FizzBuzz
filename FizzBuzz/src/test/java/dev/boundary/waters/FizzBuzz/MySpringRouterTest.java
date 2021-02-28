@@ -21,8 +21,6 @@ class MySpringRouterTest  {
 
 	@Test
 	void test() throws Exception {
-
-
 		// invoking consumer
 		producerTemplate.sendBodyAndHeader("direct:fizzbuzz", null, "i", "15");
 		
